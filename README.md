@@ -1,6 +1,6 @@
 # my dotfiles
 
-A repository for storing my dorfiles and other files/scripts I use.
+A repository for storing my dotfiles and other files/scripts I use.
 
 Currently the repo holds these configuration files:
 
