@@ -1,0 +1,42 @@
+\documentclass{kulakposter}
+% % % options: [kul] or [kulak] for appropriate logo
+% % % options: [landscape] or [portrait] for appropriate logo
+% % % poster format: [a3], ..., [a0] - increase page size AND font size
+% % % options: [photo] or [nophoto] for photo at bottom right page
+% % % \photohere manual placement of photo (with [nophoto])
+% % % \maketitlebar places title in top bar
+% % % run pdflatex 2 times
+
+\usepackage[utf8]{inputenc} % % % Make sure package option matches encoding  % % % 
+\usepackage[english]{babel} % % % Choose your language  % % % 
+
+\title{Titel van de poster} % % % Title  % % % 
+\author{Auteur van de poster} % % % Author  % % % 
+\institute{Onderzoeksgroep} % % % Name of research group  % % % 
+\emailaddress{stijn.rebry@kuleuven.be} % % % E-mail address  % % % 
+\photo{foto}  % % % put photo.jpg in same directory  % % % 
+
+\begin{document}
+
+\maketitle
+
+\section*{Inleiding}
+\begin{multicols}{2}\setlength{\columnseprule}{0pt}
+Inleidende tekst.
+\end{multicols}
+
+\begin{multicols}{2}
+\section{Hoofdstuktitel}
+Tekst.
+
+\columnbreak
+\section{Hoofdstuktitel}
+Tekst.
+\end{multicols}
+
+\section*{Besluit}
+\begin{multicols}{2}\setlength{\columnseprule}{0pt}
+Afsluitende tekst.
+\end{multicols}
+
+\end{document}
