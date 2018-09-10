@@ -1,6 +1,7 @@
 " packages
 call plug#begin('~/.vim/plugged')
 Plug 'flazz/vim-colorschemes'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 call plug#end()
 
 " some additional changes that make my life easier
@@ -37,13 +38,14 @@ set omnifunc=syntaxcomplete#Complete
 	map  <C-j> /<++><Enter>"_c4l
 
 """ latex stuff """
+    " latex preview configuration USE this instead of manually compiling it 
+    " with <leader>c and viewing it with <leader>p
+    " Start autocompiling when the command :LLPStartPreview is issued
+        let g:livepreview_previewer = 'okular'
+        set updatetime=1000 
+        command AutoCompile LLPStartPreview
     " let empty tex files also be tex files
         let g:tex_flavor='latex'
-    " Open corresponding.pdf
-        map <leader>p :!qpdfview "%:r".pdf<CR><CR>
-    " Compile document using pdflatex:
-        autocmd FileType tex inoremap <leader>c <Esc>:!pdflatex -interaction=nonstopmode  <c-r>%<Enter>a
-        autocmd FileType tex nnoremap <leader>c :!pdflatex -interaction=nonstopmode  <c-r>%<Enter>
     " Code snippets
         autocmd FileType tex inoremap ,em \emph{}<++><Esc>T{i
         autocmd FileType tex inoremap ,bf \textbf{}<++><Esc>T{i
