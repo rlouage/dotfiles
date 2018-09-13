@@ -15,6 +15,13 @@ set tabstop=4
 set expandtab
 set shiftwidth=4
 set showcmd
+set ruler
+
+" search settings
+set hlsearch
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+" filetype settings
 filetype plugin on
 filetype indent on
 
@@ -38,8 +45,9 @@ set omnifunc=syntaxcomplete#Complete
 	map  <C-j> /<++><Enter>"_c4l
 
 """ latex stuff """
-    " latex preview configuration
-    " Start autocompiling when the command :LLPStartPreview or :AutoCompile is issued
+    " latex preview configuration USE this instead of manually compiling it 
+    " with <leader>c and viewing it with <leader>p
+    " Start autocompiling when the command :LLPStartPreview is issued
         let g:livepreview_previewer = 'okular'
         set updatetime=1000 
         command AutoCompile LLPStartPreview
