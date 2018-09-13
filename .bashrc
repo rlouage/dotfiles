@@ -91,7 +91,7 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias vimrc='vim ~/.vimrc'
+
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -118,6 +118,12 @@ if ! shopt -oq posix; then
 fi
 
 #### my own defined functions ####
+
+## aliases
+
+alias vimrc='vim ~/.vimrc'
+
+## functions
 
 # copy a template latex file to with a given name to the current directory
 newlatex() {
