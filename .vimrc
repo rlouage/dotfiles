@@ -2,7 +2,17 @@
 call plug#begin('~/.vim/plugged')
 Plug 'flazz/vim-colorschemes'
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plug 'yinflying/matlab.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'jpalardy/vim-slime'
 call plug#end()
+
+" extra plugin settings
+packadd! matchit
+
+" vim-slime
+let g:slime_target = "tmux"
+
 
 " some additional changes that make my life easier
 set number
@@ -16,6 +26,8 @@ set expandtab
 set shiftwidth=4
 set showcmd
 set ruler
+set foldmethod=syntax
+set smartindent
 
 " search settings
 set hlsearch
@@ -39,18 +51,17 @@ set statusline+=\ %f
 set omnifunc=syntaxcomplete#Complete
 
 " Navigating with guides
-	inoremap  <C-j> <Esc>/<++><Enter>"_c4l
-	vnoremap  <C-j> /<++><Enter>"_c4l
-    noremap <C-j> /<++><Enter>"_c4l
-	map  <C-j> /<++><Enter>"_c4l
+""""inoremap  <C-j> <Esc>/<++><Enter>"_c4l
+""""vnoremap  <C-j> /<++><Enter>"_c4l
+""""noremap <C-j> /<++><Enter>"_c4l
+""""map  <C-j> /<++><Enter>"_c4l
 
 """ latex stuff """
-    " latex preview configuration USE this instead of manually compiling it 
-    " with <leader>c and viewing it with <leader>p
+    " latex preview configuration 
     " Start autocompiling when the command :LLPStartPreview is issued
         let g:livepreview_previewer = 'okular'
         set updatetime=1000 
-        command AutoCompile LLPStartPreview
+        command! AutoCompile LLPStartPreview
     " let empty tex files also be tex files
         let g:tex_flavor='latex'
     " Code snippets
