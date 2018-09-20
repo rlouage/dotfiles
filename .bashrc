@@ -92,7 +92,6 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -117,13 +116,14 @@ if ! shopt -oq posix; then
   fi
 fi
 
+
 #### my own defined functions ####
 
 ## aliases
 
 alias vimrc='vim ~/.vimrc'
-
-## functions
+alias pycharm='~/software/pycharm-community-2018.2.2/bin/pycharm.sh'
+alias eclipse='~/software/eclipse/eclipse'
 
 # copy a template latex file to with a given name to the current directory
 newlatex() {
