@@ -1,0 +1,16 @@
+set hlsearch
+set number
+set rnu
+set tabstop=4
+set belloff=all
+set so=5
+set colorcolumn=120
+set tabstop=4
+set expandtab
+set shiftwidth=4
+set showcmd
+set ruler
+set foldmethod=syntax
+
+" debugger
+
