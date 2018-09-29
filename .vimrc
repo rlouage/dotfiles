@@ -13,7 +13,6 @@ packadd! matchit
 " vim-slime
 let g:slime_target = "tmux"
 
-
 " some additional changes that make my life easier
 set number
 set rnu
@@ -43,22 +42,17 @@ let mapleader=","
 " colorsettings
 colorscheme elflord
 
-" statusbar
-set laststatus=2
-set statusline+=\ %f
-
 " autocomplete
 set omnifunc=syntaxcomplete#Complete
 
 " Navigating with guides
-""""inoremap  <C-j> <Esc>/<++><Enter>"_c4l
-""""vnoremap  <C-j> /<++><Enter>"_c4l
-""""noremap <C-j> /<++><Enter>"_c4l
-""""map  <C-j> /<++><Enter>"_c4l
+nnoremap <C-f> /<++><Enter>"_ca<
+inoremap <C-f> <Esc>/<++><Enter>"_ca<
+vnoremap <C-f> <Esc>/<++><Enter>"_ca<
 
 """ latex stuff """
     " latex preview configuration 
-    " Start autocompiling when the command :LLPStartPreview is issued
+    " Start autocompiling when the command :AutoCompile is issued
         let g:livepreview_previewer = 'okular'
         set updatetime=1000 
         command! AutoCompile LLPStartPreview
