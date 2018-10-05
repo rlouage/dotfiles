@@ -4,12 +4,12 @@ let maplocalleader = ","
 
 " plugins
 call plug#begin('~/.vim/plugged')
-" colorschemes
+    " colorschemes
 Plug 'flazz/vim-colorschemes'
-" plugins for syntax highlighting
+    " plugins for syntax highlighting
 Plug 'yinflying/matlab.vim'
 Plug 'pangloss/vim-javascript'
-" plugins for making vim a IDE like editor
+    " plugins for making vim a IDE like editor
     " tmux
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jpalardy/vim-slime'
@@ -17,17 +17,18 @@ Plug 'jpalardy/vim-slime'
 Plug 'w0rp/ale'
     " autocompletion
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
 endif
-Plug 'wokalski/autocomplete-flow'
+Plug 'carlitux/deoplete-ternjs'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-" other plugins
+    " other plugins
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plug 'vim-airline/vim-airline'
 call plug#end()
 
 " extra plugin settings
@@ -48,13 +49,16 @@ nmap <Leader>g <Plug>(ale_go_to_definition)
 nmap <Leader>t <Plug>(ale_go_to_definition_in_tab)
 nmap <Leader>r <Plug>(ale_find_references)
     " deopletion
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_delay = 25
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+call deoplete#custom#source('_', 'converters', ['converter_auto_paren'])
+    " ternjs
+let g:deoplete#sources#ternjs#types = 1
+let g:deoplete#sources#ternjs#docs = 1
     " neosnippet
-let g:neosnippet#enable_completed_snippet = 0
-let g:autocomplete_flow#insert_paren_after_function = 1
+let g:neosnippet#enable_completed_snippet = 1
 
 " some additional changes that make my life easier
 set number
@@ -70,6 +74,7 @@ set ruler
 set foldmethod=syntax
 set smartindent
 set showcmd
+set nojoinspaces
 
 " search settings
 set hlsearch
@@ -88,6 +93,7 @@ set omnifunc=syntaxcomplete#Complete
 " remappings for ease of use
 nnoremap <C-w> :w<Enter>
 inoremap <C-w> <Esc>:w<Enter>i
+inoremap <C-p> <C-r>+
 
 " Navigating with guides
 nnoremap <C-f> /<++><Enter>"_ca<
