@@ -121,6 +121,7 @@ fi
 
 ## aliases
 
+alias vim='nvim'
 alias vimrc='vim ~/.vimrc'
 alias pycharm='~/software/pycharm-community-2018.2.2/bin/pycharm.sh'
 alias eclipse='~/software/eclipse/eclipse'
