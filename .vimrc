@@ -36,6 +36,10 @@ let g:slime_target = "tmux"
     " javascript syntax
 let g:javascript_plugin_jsdoc = 1
     " ale
+let g:ale_linters = {
+            \   'javascript': ['eslint'],
+            \   'tex': ['lacheck'],
+            \ }
 let g:ale_fixers = {
             \   'javascript': ['eslint'],
             \}
@@ -93,7 +97,7 @@ vnoremap <C-f> <Esc>/<++><Enter>"_ca<
 """ latex stuff """
     " latex preview configuration
     " Start autocompiling when the command :LLPStartPreview is issued
-        let g:livepreview_previewer = 'okular'
+        let g:livepreview_previewer = 'evince'
         set updatetime=1000
         command! AutoCompile LLPStartPreview
     " let empty tex files also be tex files
@@ -124,15 +128,3 @@ vnoremap <C-f> <Esc>/<++><Enter>"_ca<
         autocmd FileType tex inoremap ,al \begin{align}<Enter><Enter>\label{eqn:<++>}<Enter>\end{align}<Enter><++><Esc>3k^i<Tab>
         autocmd FileType tex inoremap ,al* \begin{align*}<Enter><Enter>\end{align*}<Enter><++><Esc>2k^i<Tab>
         autocmd FileType tex inoremap ,frac \frac{}{<++>}<Esc>^f{a
- 
-
-" some hacks
-    " deleting tern port file if exists (used for tern_for_vim) 
-function! TernPrep()
-    if !empty(glob(join([getcwd(), ".tern-port"], "/")))
-        echo ".tern-port exists, deleting with result:"
-        echo delete(fnameescape(join([getcwd(), ".tern-port"], "/"))) == 0 ? "Success" : "Fail"
-    endif
-endfunction
-
-" autocmd VimEnter * :call TernPrep()
