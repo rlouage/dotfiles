@@ -32,10 +32,13 @@ Plug 'vim-airline/vim-airline'
 call plug#end()
 
 " extra plugin settings
+
     " slime 
 let g:slime_target = "tmux"
+
     " javascript syntax
 let g:javascript_plugin_jsdoc = 1
+
     " ale
 let g:ale_linters = {
             \   'javascript': ['eslint'],
@@ -48,15 +51,17 @@ let g:ale_fix_on_save = 1
 nmap <Leader>g <Plug>(ale_go_to_definition)
 nmap <Leader>t <Plug>(ale_go_to_definition_in_tab)
 nmap <Leader>r <Plug>(ale_find_references)
+
     " deopletion
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_complete_delay = 25
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 call deoplete#custom#source('_', 'converters', ['converter_auto_paren'])
+
     " ternjs
 let g:deoplete#sources#ternjs#types = 1
 let g:deoplete#sources#ternjs#docs = 1
+
     " neosnippet
 let g:neosnippet#enable_completed_snippet = 1
 
@@ -134,3 +139,15 @@ vnoremap <C-f> <Esc>/<++><Enter>"_ca<
         autocmd FileType tex inoremap ,al \begin{align}<Enter><Enter>\label{eqn:<++>}<Enter>\end{align}<Enter><++><Esc>3k^i<Tab>
         autocmd FileType tex inoremap ,al* \begin{align*}<Enter><Enter>\end{align*}<Enter><++><Esc>2k^i<Tab>
         autocmd FileType tex inoremap ,frac \frac{}{<++>}<Esc>^f{a
+ 
+
+" some hacks
+    " deleting tern port file if exists (used for tern_for_vim) 
+function! TernPrep()
+    if !empty(glob(join([getcwd(), ".tern-port"], "/")))
+        echo ".tern-port exists, deleting with result:"
+        echo delete(fnameescape(join([getcwd(), ".tern-port"], "/"))) == 0 ? "Success" : "Fail"
+    endif
+endfunction
+
+autocmd VimEnter * :call TernPrep()
