@@ -1,7 +1,6 @@
 set nocompatible
 filetype off
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -22,6 +21,10 @@ Plugin 'jpalardy/vim-slime'
 
 " Autocompletion 
 Plugin 'Valloric/YouCompleteMe'
+
+" StatusLine
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " Latex 
 Plugin 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
@@ -58,6 +61,9 @@ let mapleader = ","
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" don't show buffernames when only one buffer is open
+set showtabline=1
 
 " set 5 lines to the cursor - when moving vertically using j/k
 set so=5
@@ -155,7 +161,7 @@ inoremap <C-p> <C-r>+
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+command! W w !sudo tee % > /dev/null
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -281,27 +287,6 @@ endtry
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-" Always show the status line
-set laststatus=2
-
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\      "file name 
-set statusline+=[%{strlen(&fenc)?&fenc:'none'},  "file encoding
-set statusline+=%{&ff}]                          "file format
-set statusline+=\ %y                             "filetype
-set statusline+=\ CWD:\ %r%{getcwd()}%h\ \       "current working directory 
-set statusline+=Line:\ %l\ \                     "line number 
-set statusline+=Column:\ %c                      "column number 
-set statusline+=%=\ Buf:%n                       "buffer number
-set statusline+=\ [%b][0x%B]\                    "ASCII and byte code under cursor
-
-" color of the status line
-hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
