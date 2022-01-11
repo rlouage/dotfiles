@@ -130,3 +130,14 @@ alias eclipse='~/software/eclipse/eclipse'
 newlatex() {
     ~/Documents/scripts/newlatex.sh "$1" "$2"
 }
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls -a --color=auto'
+alias vim='nvim'
+alias vi='nvim'
+# PS1='[\u@\h \W]\$ '
