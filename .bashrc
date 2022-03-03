@@ -75,7 +75,6 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -120,19 +119,6 @@ fi
 #### my own defined functions ####
 
 ## aliases
-
-alias vim='nvim'
-alias vimrc='vim ~/.vimrc'
-alias pycharm='~/software/pycharm-community-2018.2.2/bin/pycharm.sh'
-alias eclipse='~/software/eclipse/eclipse'
-
-# copy a template latex file to with a given name to the current directory
-newlatex() {
-    ~/Documents/scripts/newlatex.sh "$1" "$2"
-}
-#
-# ~/.bashrc
-#
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
