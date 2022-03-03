@@ -1,10 +1,7 @@
 setxkbmap be
-pipewire &
-xwallpaper --zoom /windows/Users/Rob/Pictures/bg.jpg
+# set wallpaper
+xwallpaper --output HDMI-0 --zoom ~/Pictures/orig.png
+xwallpaper --output DVI-I-0 --stretch ~/Pictures/resized.png
 
-while true; do
-	xsetroot -name "$(date +"%a %d %b %H:%M:%S %Y")"
-	sleep 1s
-done &
-
+slstatus &
 nm-applet &
