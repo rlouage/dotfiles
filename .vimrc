@@ -5,29 +5,23 @@ filetype off
 " PLUGINS "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " set the runtime path to include Vundle and initialize
-set rtp+=/home/areobe/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " colorschemes
 Plugin 'flazz/vim-colorschemes'
 
-"syntax highlighting
-Plugin 'yinflying/matlab.vim'
-Plugin 'pangloss/vim-javascript'
-
 " plugins for making vim a IDE like editor
-Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'jpalardy/vim-slime'
-
-" Autocompletion 
-Plugin 'Valloric/YouCompleteMe'
 
 " StatusLine
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
-" Latex 
-Plugin 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+" nerdtree
+Plugin 'preservim/nerdtree'
+Plugin 'junegunn/fzf.vim'
+
 call vundle#end()            " required
 filetype plugin indent on
 
@@ -36,15 +30,21 @@ filetype plugin indent on
 " PlUGINS SETTINGS "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" slime 
-let g:slime_target = "tmux"
+""" slime 
+let g:slime_target = "x11"
+" let control xx be the default mapping to send a paragraph to another window
+nmap <C-x><C-x> <Plug>SlimeParagraphSend
 
-" javascript syntax
-let g:javascript_plugin_jsdoc = 1
-
-" YouCompleteMe
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+""" nerdtree
+" Start NERDTree and put the cursor back in the other window.
+autocmd VimEnter * NERDTree | wincmd p
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -138,7 +138,7 @@ set rnu
 set colorcolumn=120
 
 " fold based on syntax
-set foldmethod=syntax
+" set foldmethod=syntax
 
 " show commands 
 set showcmd
@@ -153,8 +153,8 @@ set wrap!
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " fast save
-nnoremap <C-w> :w<Enter>
-inoremap <C-w> <Esc>:w<Enter>
+" nnoremap <C-w> :w<Enter>
+" inoremap <C-w> <Esc>:w<Enter>
 
 " fast paste
 inoremap <C-p> <C-r>+
@@ -177,7 +177,8 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    colorscheme elflord
+    "colorscheme elflord
+    colorscheme afterglow
 catch
 endtry
 
@@ -248,6 +249,13 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+" Make adjusing split sizes a bit more friendly
+noremap <silent> <C-Left> :vertical resize -3<CR>
+noremap <silent> <C-Right> :vertical resize +3<CR>
+noremap <silent> <C-Up> :resize -3<CR>
+noremap <silent> <C-Down> :resize +3<CR>
+
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>:tabclose<cr>gT
@@ -397,44 +405,3 @@ function! VisualSelection(direction, extra_filter) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" LATEX PLUGIN 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Start autocompiling when the command :LLPStartPreview is issued
-command! AutoCompile LLPStartPreview
-let g:livepreview_previewer = 'evince'
-
-" set the autoupdate time to 1 sec
-set updatetime=1000
-
-" let empty tex files also be tex files
-let g:tex_flavor='latex'
-
-" Code snippets
-autocmd FileType tex inoremap ,em \emph{}<++><Esc>T{i
-autocmd FileType tex inoremap ,bf \textbf{}<++><Esc>T{i
-autocmd FileType tex inoremap ,it \textit{}<++><Esc>T{i
-autocmd FileType tex inoremap ,ol \begin{enumerate}<Enter><Enter>\end{enumerate}<Enter><Enter><++><Esc>3kA\item
-autocmd FileType tex inoremap ,ul \begin{itemize}<Enter><Enter>\end{itemize}<Enter><Enter><++><Esc>3kA\item
-autocmd FileType tex inoremap ,li <Enter>\item
-autocmd FileType tex inoremap ,ref \ref{} <++><Esc>T{i
-autocmd FileType tex inoremap ,tab \begin{tabular}<Enter><++><Enter>\end{tabular}<Enter><Enter><++><Esc>4kA{}<Esc>i
-autocmd FileType tex inoremap ,a \href{}{<++>} <++><Esc>2T{i
-autocmd FileType tex inoremap ,chap \chapter{}<Enter><Enter><++><Esc>2kf}i
-autocmd FileType tex inoremap ,sec \section{}<Enter><Enter><++><Esc>2kf}i
-autocmd FileType tex inoremap ,ssec \subsection{}<Enter><Enter><++><Esc>2kf}i
-autocmd FileType tex inoremap ,sssec \subsubsection{}<Enter><Enter><++><Esc>2kf}i
-autocmd FileType tex inoremap ,up <Esc>/usepackage<Enter>o\usepackage{}<Esc>i
-autocmd FileType tex inoremap ,tt \texttt{} <++><Esc>T{i
-autocmd FileType tex inoremap ,ra (\ref{})<++><Esc>F}i
-autocmd FileType tex inoremap ,fig \begin{figure}<Enter>\centering<Enter>\includegraphics[width=0.5\textwidth]{}<Enter>\caption{<++>}<Enter>\label{fig:<++>}<Enter>\end{figure}<Enter><++><Esc>4kf{a
-autocmd FileType tex inoremap ,sfig2 \begin{figure}<Enter>\centering<Enter>\begin{subfigure}[b]{0.5\textwidth}<Enter>\includegraphics[width=\textwidth]{}<Enter>\caption{<++>}<Enter>\label{fig:<++>}<Enter>\end{subfigure}<Enter>~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.<Enter>\begin{subfigure}[b]{0.5\textwidth}<Enter>\includegraphics[width=\textwidth]{<++>}<Enter>\caption{<++>}<Enter>\label{fig:<++>}<Enter>\end{subfigure}<Enter>\caption{<++>}\label{fig:<++>}<Enter>\end{figure}<Enter><++><Esc>12kf{a
-autocmd FileType tex inoremap ,sfig3 \begin{figure}<Enter>\centering<Enter>\begin{subfigure}[b]{0.3\textwidth}<Enter>\includegraphics[width=\textwidth]{}<Enter>\caption{<++>}<Enter>\label{fig:<++>}<Enter>\end{subfigure}<Enter>~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.<Enter>\begin{subfigure}[b]{0.3\textwidth}<Enter>\includegraphics[width=\textwidth]{<++>}<Enter>\caption{<++>}<Enter>\label{fig:<++>}<Enter>\end{subfigure}<Enter>\begin{subfigure}[b]{0.3\textwidth}<Enter>\includegraphics[width=\textwidth]{<++>}<Enter>\caption{<++>}<Enter>\label{fig:<++>}<Enter>\end{subfigure}<Enter>\caption{<++>}\label{fig:<++>}<Enter>\end{figure}<Enter><++><Esc>17kf{a
-autocmd FileType tex inoremap ,eq \begin{equation}<Enter><Enter>\label{eqn:<++>}<Enter>\end{equation}<Enter><++><Esc>3k^i<Tab>
-autocmd FileType tex inoremap ,eq* \begin{equation*}<Enter><Enter>\end{equation*}<Enter><++><Esc>2k^i<Tab>
-autocmd FileType tex inoremap ,al \begin{align}<Enter><Enter>\label{eqn:<++>}<Enter>\end{align}<Enter><++><Esc>3k^i<Tab>
-autocmd FileType tex inoremap ,al* \begin{align*}<Enter><Enter>\end{align*}<Enter><++><Esc>2k^i<Tab>
-autocmd FileType tex inoremap ,frac \frac{}{<++>}<Esc>^f{a
